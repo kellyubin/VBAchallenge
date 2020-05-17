@@ -1,0 +1,83 @@
+Sub TickerVolume()
+
+    ' Set an initial variable for holding the ticker
+    Dim Ticker As String
+
+    'Create new column headers
+    Cells(1, 9).Value = "Ticker"
+    Cells(1, 10).Value = "Yearly Change"
+    Cells(1, 11).Value = "Percent Change"
+    Cells(1, 12).Value = "Total Stock Volume"
+
+    'Set an initial variable for holding the volume total
+    Dim Vol_Total As Double
+    Vol_Total = 0
+
+    'Keep track of the location for summary table
+    Dim Summary_Table_Row As Integer
+    Summary_Table_Row = 2
+    LastRow = Cells(Rows.Count, 1).End(xlUp).Row
+
+    'Loop through all tickers
+    For i = 2 To LastRow
+
+    'Check if we are still within the same ticker, if it is not...
+    If Cells(i + 1, 1).Value <> Cells(i, 1).Value Then
+
+     'Set the Ticker
+    Ticker = Cells(i, 1).Value
+
+     'Add to the Volume Total
+    Vol_Total = Vol_Total + Cells(i, 7).Value
+
+     'Print the Ticker in the Summary Table
+     Range("I" & Summary_Table_Row).Value = Ticker
+
+     'Print the Vol to the Summary Table
+     Range("L" & Summary_Table_Row).Value = Vol_Total
+
+     'Add one to the summary table row for next ticker
+     Summary_Table_Row = Summary_Table_Row + 1
+
+     'Reset the Vol Total
+     Vol_Total = 0
+
+     'If the cell immediately following a row is the same Ticker...
+
+    Else
+
+     'Add to the Ticker Total
+     Vol_Total = Vol_Total + Cells(i, 7).Value
+
+    End If
+
+    Next i
+
+End Sub
+
+Sub YearlyChange()
+
+    'Find start and end rows with unique ticker
+    Dim TickStartRow As Long
+    Dim TickEndRow As Long
+    Dim xlPrevious As Long
+    Dim Summary_Table_Row As Integer
+    Summary_Table_Row = 2
+    LastRow = Cell(Row.Vount, 9).End(xlUp).Row
+
+    'Loop through all tickers
+    For i = 2 To LastRow1
+
+    'Find through all tickers
+    TickStarRow = Range("A:A").Find(what:=Cells(i, 9), after:=Cells(1.1)).Row
+    TickEndRow = Range("A:A").Find(what:=Cells(i, 9), after:=Cells(1.1)).Row, SearchDirection:=xlPrevious)Row
+
+    'Print the Change in the Summary Table
+    Range("J" & Summary_Table_Row).Value = Range("C" & TickStartRow).Value - Range("F" & TickEndRow).Value
+
+    'Add one to the summary table row for the next ticker
+    Summary_Table_Row = Summary_Table_Row + 1
+
+ Next i
+
+End Sub
